@@ -7,9 +7,9 @@ Temperature["Cold"] = fuzz.trimf(Temperature.universe, [10,10,25])
 Temperature["Medium"] = fuzz.trimf(Temperature.universe, [15,25,35])
 Temperature["Hot"] = fuzz.trimf(Temperature.universe, [25, 40, 40])
 Humidity = ctrl.Antecedent(np.arange(20, 100, 0.1), "Humidity")
-Humidity["Wet"] = fuzz.trimf(Humidity.universe, [20,20,60])
+Humidity["Dry"] = fuzz.trimf(Humidity.universe, [20,20,60])
 Humidity["normal"] = fuzz.trapmf(Humidity.universe, [30,45,75,90])
-Humidity["Dry"] = fuzz.trimf(Humidity.universe, [60, 100, 100])
+Humidity["Wet"] = fuzz.trimf(Humidity.universe, [60, 100, 100])
 Speed = ctrl.Consequent(np.arange(0, 100, 0.1), "Speed" , defuzzify_method='centroid')
 Speed["Slow"] = fuzz.trimf(Speed.universe, [0,0, 50])
 Speed["Moderate"] = fuzz.trimf(Speed.universe, [10, 50, 90])
@@ -35,8 +35,8 @@ AirCondition_ctrl = ctrl.ControlSystem([rule1,rule2,rule3,rule4,rule5,rule6,rule
 
 AirCondition = ctrl.ControlSystemSimulation(AirCondition_ctrl)
 
-AirCondition.input['Temperature'] = 15
-AirCondition.input['Humidity'] = 21
+AirCondition.input['Temperature'] = 18
+AirCondition.input['Humidity'] = 60
 AirCondition.compute()
 print(AirCondition.output['Speed'])
 Speed.view(sim=AirCondition)
